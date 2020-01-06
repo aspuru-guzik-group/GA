@@ -1,0 +1,16 @@
+O=C(NC[C@@H]1CCC[NH+](CC2=c3ccccc3=[NH+]C2)C1)[C@H]1NN=C2C=CC=C[C@H]21,O=C(NCC1CCC[NH+](CC2=c3ccccc3=[NH+]C2)C1)C1NN=C2C=CC=CC21,FAILED
+C[C@@H](C(=O)C1=c2ccccc2=[NH+]C1)[NH+]1CCC[C@@H]1[C@@H]1CC=CS1,CC(C(=O)C1=c2ccccc2=[NH+]C1)[NH+]1CCCC1C1CC=CS1,FAILED
+CCOc1cccc(NC(=O)/C(C#N)=C/[C@H]2C=c3ccccc3=[NH+]2)c1,CCOc1cccc(NC(=O)C(C#N)=CC2C=c3ccccc3=[NH+]2)c1,FAILED
+CCCN1CC(=O)N2[C@@H](CC3=c4ccccc4=[NH+][C@@H]3[C@H]2c2ccccc2OC)C1=O,CCCN1CC(=O)N2C(CC3=c4ccccc4=[NH+]C3C2c2ccccc2OC)C1=O,FAILED
+CC(=O)C1=C([O-])C(=O)N(CCC2=c3ccccc3=[NH+][C@H]2C)[C@H]1c1ccccc1F,CC(=O)C1=C([O-])C(=O)N(CCC2=c3ccccc3=[NH+]C2C)C1c1ccccc1F,FAILED
+CCOc1ccc(NC(=O)c2ccc(N3C(=O)N4CCC5=c6ccccc6=[NH+][C@H]5[C@@]4(C)C3=O)cc2)cc1,CCOc1ccc(NC(=O)c2ccc(N3C(=O)N4CCC5=c6ccccc6=[NH+]C5C4(C)C3=O)cc2)cc1,FAILED
+CC(C)[NH+]1CCC(N2CCN(CC3=c4ccccc4=[NH+]C3)C[C@@H]2CCO)CC1,CC(C)[NH+]1CCC(N2CCN(CC3=c4ccccc4=[NH+]C3)CC2CCO)CC1,FAILED
+C[C@H]1N=C(CCNC(=O)CCC2=c3ccccc3=[NH+]C2)CS1,CC1N=C(CCNC(=O)CCC2=c3ccccc3=[NH+]C2)CS1,FAILED
+O=C(CS[C@H]1NN=C(C[C@@H]2CCS(=O)(=O)C2)O1)C1=c2ccccc2=[NH+][C@@H]1c1ccccc1,O=C(CSC1NN=C(CC2CCS(=O)(=O)C2)O1)C1=c2ccccc2=[NH+]C1c1ccccc1,FAILED
+CCn1nc(C)c(CNC(=O)[C@H]2[NH+]=c3ccccc3=C2NC(=O)c2cccc(C)c2)c1C,CCn1nc(C)c(CNC(=O)C2[NH+]=c3ccccc3=C2NC(=O)c2cccc(C)c2)c1C,FAILED
+NC1=c2cc(Br)ccc2=[NH+]C1,NC1=c2cc(Br)ccc2=[NH+]C1,FAILED
+CN(C[C@H]1C=c2ccccc2=[NH+]C1=O)C(=O)c1ccccc1,CN(CC1C=c2ccccc2=[NH+]C1=O)C(=O)c1ccccc1,FAILED
+C[C@H]1CCCN(C(=O)CS[C@@H]2[NH+]=c3ccc(Cl)cc3=[NH+]2)C1,CC1CCCN(C(=O)CSC2[NH+]=c3ccc(Cl)cc3=[NH+]2)C1,FAILED
+C[C@@H]1[NH+]=c2ccccc2=C1CCN1C(=O)[C@H]2CCCC[C@@H]2C1=O,CC1[NH+]=c2ccccc2=C1CCN1C(=O)C2CCCCC2C1=O,FAILED
+COc1ccc2c(c1)=C[C@H](CN(c1ccc(C)c(C)c1)S(C)(=O)=O)C(=O)[NH+]=2,COc1ccc2c(c1)=CC(CN(c1ccc(C)c(C)c1)S(C)(=O)=O)C(=O)[NH+]=2,FAILED
+CC1=C(C(=O)OCC(=O)C2=c3ccccc3=[NH+][C@@H]2C)[C@@H](C)N(C)N1,CC1=C(C(=O)OCC(=O)C2=c3ccccc3=[NH+]C2C)C(C)N(C)N1,FAILED
