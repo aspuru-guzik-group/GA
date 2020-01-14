@@ -6,17 +6,27 @@ This repository contains code for the paper: [Augmenting genetic algorithms with
 
 
 # Directory Navigator: 
-
+The code for this repository is arranged based on the experiments of the paper. Particularly: 
+- [Experiment 1: ](https://github.com/akshat998/GA/tree/master/4.1) Unconstrained optimization and comparison with other generative models
+- [Experiment 2: ](https://github.com/akshat998/GA/tree/master/4.2) Long term experiment with a time-dependent adaptive penalty
+- [Experiment 3: ](https://github.com/akshat998/GA/tree/master/4.3) Analysis of molecule classes explored by the GA
+- [Experiment 4: ](https://github.com/akshat998/GA/tree/master/4.4) Constrained optimization
+- [Experiment 5: ](https://github.com/akshat998/GA/tree/master/4.5) Simultaneous logP and QED optimization
+- [Experiment 6: ](https://github.com/akshat998/GA/tree/master/4.6) Modification of the hyperparameter beta
+Instructions on running the code are provided in the above links.
 
 
 # Prerequisite
 
 Before running the code, please ensure you have the following:
 
+
+- [SELFIES (any version)](https://github.com/aspuru-guzik-group/selfies) - 
+  The code was run with v0.1.1 (which is the fastest), however, the code is compatible with any version. 
 - [Python 3.0 or up](https://www.python.org/download/releases/3.0/)
 - [Pytorch v0.4.1](https://pytorch.org/)
-- [SELFIES (any version)](https://github.com/aspuru-guzik-group/selfies) 
-  The code was run with v0.1.1 (which is the fastest), however, the code is compatible with any version. 
+- [tensorboardX](https://pypi.org/project/tensorboardX/)
+
 
 
 # Questions, problems?
