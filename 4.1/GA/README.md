@@ -1,6 +1,7 @@
 # How to run the code? : 
 Code for the unconstrained optimization experiment can be run uing:  
-```python ./core_GA.py
+```
+python ./core_GA.py
 ```  
 
 The following settings can be used (found at the end of the file): 
