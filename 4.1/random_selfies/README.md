@@ -1,5 +1,12 @@
-# Directory Navigator: 
-The code for this repository is arranged based on the experiments of the paper. Particularly: 
-- [Experiment 1: ](https://github.com/akshat998/GA/tree/master/4.1) Unconstrained optimization and comparison with other generative models
-- [Experiment 2: ](https://github.com/akshat998/GA/tree/master/4.2) Long term experiment with a time-dependent adaptive penalty 
+# How to run the code? : 
+Code for the unconstrained optimization experiment can be run using:  
+```
+python ./random_baseline.py
+```  
 
+# How are the results saved?  : 
+'i' denotes the iteration of the run: 
+1. ./results/results_i:  
+   All the smile strings created by the random generator.   
+2. results.txt:  
+   The molecule with the highest fitness in each iteration of the run. 
