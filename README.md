@@ -4,7 +4,7 @@ Code for the paper: Augmenting genetic algorithms with deep neural networks for 
 
 # GA_optimization
 
-<img src="./readme_docs/mol_view.gif" align="center"/>
+<img align="center" src="./readme_docs/mol_view.gif"/>
 
 
 This repository encourages the use of Genetic Algorithms for hyperparameter optimization. 
