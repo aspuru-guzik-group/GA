@@ -60,7 +60,7 @@ def obtain_initial_discriminator(disc_enc_type, disc_layers, max_molecules_len, 
         discriminator, d_optimizer, d_loss_func = create_discriminator(one_hot_len, disc_layers, 0.0, device) 
         return discriminator, d_optimizer, d_loss_func
     elif disc_enc_type == 'properties_rdkit':
-        discriminator, d_optimizer, d_loss_func = create_discriminator(51, disc_layers, device) # TODO: 9 = Hyperparam change according to num_propoerties 
+        discriminator, d_optimizer, d_loss_func = create_discriminator(51, disc_layers, device) 
         return discriminator, d_optimizer, d_loss_func
 
 

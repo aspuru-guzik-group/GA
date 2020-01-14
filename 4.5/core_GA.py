@@ -1,3 +1,4 @@
+
 import os
 from selfies import decoder 
 import time
@@ -67,12 +68,6 @@ def initiate_ga(num_generations,            generation_size,    starting_selfies
         
         # Obtain data for training the discriminator (Note: data is shuffled)
         dataset_x, dataset_y = gen_func.obtain_discrm_data(disc_enc_type, molecules_reference, smiles_mutated, selfies_mutated, max_molecules_len, num_processors, generation_index)
-        # Train the discriminator (on mutated molecules)
-#        if generation_index >= training_start_gen:
-#            discriminator = D.do_x_training_steps(dataset_x, dataset_y, discriminator, d_optimizer, d_loss_func , disc_epochs_per_generation, generation_index-1, device, writer, data_dir)
-#            D.save_model(discriminator, generation_index-1, saved_models_dir) # Save the discriminator 
-
-#        print('Generation time: ', round((time.time()-start_time), 2), ' seconds')
 
     print('Total time: ', round((time.time()-total_time)/60, 2), ' mins')
     print('Total number of unique molecules: ', len(smiles_all_counter))
@@ -98,14 +93,14 @@ if __name__ == '__main__':
             writer = SummaryWriter()   
     
             # Initiate the Genetic Algorithm
-            smiles_all_counter = initiate_ga(    num_generations            = 1000,
+            smiles_all_counter = initiate_ga(    num_generations            = 100,
                                                  generation_size            = 500,
                                                  starting_selfies           = [encoder('C')],
                                                  max_molecules_len          = 81,
                                                  disc_epochs_per_generation = 10,
-                                                 disc_enc_type              = 'properties_rdkit',         # 'selfies' or 'smiles' or 'properties_rdkit'
+                                                 disc_enc_type              = 'properties_rdkit',                # 'selfies' or 'smiles' or 'properties_rdkit'
                                                  disc_layers                = [100, 10],
-                                                 training_start_gen         = 0,                          # generation index to start training discriminator
+                                                 training_start_gen         = 0,                                 # generation index to start training discriminator
                                                  device                     = 'cpu',
                                                  properties_calc_ls         = ['logP', 'SAS', 'RingP', 'QED'],   # None: No properties ; 'logP', 'SAS', 'RingP'
                                                  num_processors             = multiprocessing.cpu_count(),

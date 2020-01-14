@@ -140,18 +140,6 @@ def read_dataset_encoding(disc_enc_type):
     
 def create_100_mol_image(mol_list, file_name, fitness, logP, SAS, RingCount, discr_scores):
     '''Create a single picture of multiple molecules in a single Grid. 
-    
-    Each molecule contains a subscript of: 
-        []
-    
-    # TODO: Convert arguments to one list, with multiple elements 
-    
-    
-    # TODO: Plotting multiple
-    # We have score to show in the legend 
-    # for i,m in enumerate(mol_list):
-    #    m.SetProp('_Name','%s %s %s' % (round(score_ls[i],2), round(logP[i],2)  ,  round(disc[i],2) ))
-    # Draw.MolsToGridImage(mol_list, molsPerRow=10, subImgSize=(200,200), legends=[x.GetProp("_Name") for x in mol_list]).save(file_name)
     '''
     assert len(mol_list) == 100
     if logP == None and SAS == None and RingCount == None and discr_scores == None:
@@ -302,12 +290,13 @@ def mutations_random_grin(selfie, max_molecules_len, write_fail_cases=False):
     while not valid:
         fail_counter += 1
                 
-        alphabet = ['[Branch1_1]', '[Branch1_2]','[Branch1_3]', '[epsilon]', '[Ring1]', '[Ring2]', '[Branch2_1]', '[Branch2_2]', '[Branch2_3]', '[F]', '[O]', '[=O]', '[N]', '[=N]', '[#N]', '[C]', '[=C]', '[#C]', '[S]', '[=S]', '[C][=C][C][=C][C][=C][Ring1][Branch1_1]']
+        alphabet_no_rem = ['[Branch1_1]', '[Branch1_2]','[Branch1_3]', '[epsilon]', '[Ring1]', '[Ring2]', '[Branch2_1]', '[Branch2_2]', '[Branch2_3]', '[F]', '[O]', '[=O]', '[N]', '[=N]', '[#N]', '[C]', '[=C]', '[#C]', '[S]', '[=S]', '[C][=C][C][=C][C][=C][Ring1][Branch1_1]']
+        alphabet = ['[Branch1_1]', '[Branch1_2]','[Branch1_3]', '[epsilon]', '[Ring1]', '[Ring2]', '[Branch2_1]', '[Branch2_2]', '[Branch2_3]', '[F]', '[O]', '[=O]', '[N]', '[=N]', '[#N]', '[C]', '[=C]', '[#C]', '[S]', '[=S]', '[C][=C][C][=C][C][=C][Ring1][Branch1_1]', 'X']
 
         # Insert a character in a Random Location
         if np.random.random() < 0.5: 
             random_index = np.random.randint(len(chars_selfie)+1)
-            random_character = np.random.choice(alphabet, size=1)[0]
+            random_character = np.random.choice(alphabet_no_rem, size=1)[0]
 
             selfie_mutated_chars = chars_selfie[:random_index] + [random_character] + chars_selfie[random_index:]
 
@@ -316,9 +305,15 @@ def mutations_random_grin(selfie, max_molecules_len, write_fail_cases=False):
             random_index = np.random.randint(len(chars_selfie))
             random_character = np.random.choice(alphabet, size=1)[0]
             if random_index == 0:
-                selfie_mutated_chars = [random_character] + chars_selfie[random_index+1:]
+                if random_character == 'X':
+                    selfie_mutated_chars = chars_selfie[random_index+1:]
+                else:
+                    selfie_mutated_chars = [random_character] + chars_selfie[random_index+1:]
             else:
-                selfie_mutated_chars = chars_selfie[:random_index] + [random_character] + chars_selfie[random_index+1:]
+                if random_character == 'X':
+                    selfie_mutated_chars = chars_selfie[:random_index] + chars_selfie[random_index+1:]
+                else:
+                    selfie_mutated_chars = chars_selfie[:random_index] + [random_character] + chars_selfie[random_index+1:]
 
                 
         selfie_mutated = "".join(x for x in selfie_mutated_chars)

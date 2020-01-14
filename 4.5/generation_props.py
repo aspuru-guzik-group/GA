@@ -103,7 +103,7 @@ def fitness(molecules_here,    properties_calc_ls,
     
     Parameters:
     molecules_here    (list)         : List of a string of molecules
-    properties_calc_ls                  : # TODO
+    properties_calc_ls               : Type of encoding shown to the discriminators
     discriminator     (torch.Model)  : Pytorch classifier 
     disc_enc_type     (string)       : Indicated type of encoding shown to discriminator
     generation_index  (int)          : Which generation indicator
@@ -145,42 +145,20 @@ def fitness(molecules_here,    properties_calc_ls,
             ringP_results = create_parr_process(chunks, 'RingP')
             
         if 'QED' in properties_calc_ls:
-#            print('molecules here: ', molecules_here)
             QED_results = {}
             for smi in molecules_here:
                 QED_results[smi] = Chem.QED.qed(Chem.MolFromSmiles(smi))
-#            print(QED_results)
-#            raise Exception('QED to be calculated :)')
+
 
 
         logP_calculated, SAS_calculated, RingP_calculated, logP_norm, SAS_norm, RingP_norm, QED_results = obtained_standardized_properties(molecules_here, logP_results, SAS_results, ringP_results, QED_results)
+        QED_results = np.expand_dims(QED_results, axis=1)
 
-        # Add SAS and Ring Penalty
-        fitness = 10 * np.array(QED_results)
-        fitness = np.expand_dims(fitness, axis=1)
-        fitness = fitness + (logP_norm) - (SAS_norm) - (RingP_norm)
+        fitness = - (np.square(logP_norm - 2.491233077292206)) - (50 * (np.square(QED_results - 0.9)))
 
-        # Plot fitness without discriminator 
         writer.add_scalar('max fitness without discr',  max(fitness),     generation_index)
         writer.add_scalar('avg fitness without discr',  fitness.mean(),   generation_index)
-        
-        
-        ## Add the best fitness to the collector! ------------
         max_fitness_collector.append(max(fitness)[0])
-#        print('Testing the max fitness collector: ', max_fitness_collector)
-        ## Add the best fitness to the collector! ------------
-        
-        ## Impose the beta cuttoff! --------------------------
-#        if generation_index > 100:
-#            if len(set(max_fitness_collector[-5:])) == 1: # Check if there is a sagnation for 10 generations!
-#                beta = 1000
-#                print('!!!BETA CUTTOFF IMPOSED!!!!  index: ', generation_index)
-#                f = open('{}/beta_change_log.txt'.format(data_dir), 'a+')
-#                f.write(str(generation_index) + '\n')
-#                f.close()
-        
-        
-        ## Impose the beta cuttoff! --------------------------
 
         
         # max fitness without discriminator
@@ -191,16 +169,6 @@ def fitness(molecules_here,    properties_calc_ls,
         f = open('{}/avg_fitness_no_discr.txt'.format(data_dir), 'a+')
         f.write(str(fitness.mean()) + '\n')
         f.close()
-        
-#        print('discrm. prediction before: ', discriminator_predictions[0:5])
-        
-        
-        ## TRANSFORMATION IMPOSED -------
-#        discriminator_predictions = (2 * discriminator_predictions) - 1 
-        ## TRANSFORMATION IMPOSED -------
-        
-#        print('beta value: ', beta)
-#        fitness = (beta * discriminator_predictions) + fitness
         
         # Plot fitness with discriminator 
         writer.add_scalar('max fitness with discrm',  max(fitness),     generation_index)   
@@ -215,57 +183,7 @@ def fitness(molecules_here,    properties_calc_ls,
         f.write(str(fitness.mean()) + '\n')
         f.close()
         
-        
-        # Plot properties 
-#        writer.add_scalar('non standr max logp',   max(logP_calculated),    generation_index) # logP plots      
-#        writer.add_scalar('non standr mean logp',  logP_calculated.mean(),  generation_index)                    
-#        writer.add_scalar('non standr min sas',    min(SAS_calculated),     generation_index) # SAS plots  
-#        writer.add_scalar('non standr mean sas',   SAS_calculated.mean(),   generation_index)
-#        writer.add_scalar('non standr min ringp',  min(RingP_calculated),   generation_index) # RingP plots
-#        writer.add_scalar('non standr mean ringp', RingP_calculated.mean(), generation_index)
-
-        # max logP - non standardized
-#        f = open('{}/max_logp.txt'.format(data_dir), 'a+')
-#        f.write(str(max(logP_calculated)) + '\n')
-#        f.close()
-#        # mean logP - non standardized
-#        f = open('{}/avg_logp.txt'.format(data_dir), 'a+')
-#        f.write(str(logP_calculated.mean()) + '\n')
-#        f.close()
-#        # min SAS - non standardized 
-#        f = open('{}/min_SAS.txt'.format(data_dir), 'a+')
-#        f.write(str(min(SAS_calculated)) + '\n')
-#        f.close()
-#        # mean SAS - non standardized 
-#        f = open('{}/avg_SAS.txt'.format(data_dir), 'a+')
-#        f.write(str(SAS_calculated.mean()) + '\n')
-#        f.close()
-#        # min RingP - non standardized 
-#        f = open('{}/min_RingP.txt'.format(data_dir), 'a+')
-#        f.write(str(min(RingP_calculated)) + '\n')
-#        f.close()
-#        # mean RingP - non standardized 
-#        f = open('{}/avg_RingP.txt'.format(data_dir), 'a+')
-#        f.write(str(RingP_calculated.mean()) + '\n')
-#        f.close()        
-        
-#    return fitness, logP_calculated, SAS_calculated, RingP_calculated, discriminator_predictions
     return fitness, logP_calculated, SAS_calculated, RingP_calculated, discriminator_predictions, QED_results
-#    return fitness
-
-
-#def obtained_standardized_properties(molecules_here,  QED_results):
-#    ''' Obtain calculated properties of molecules in molecules_here, and standardize
-#    values base on properties of the Zinc Data set. 
-#    '''
-#    QED_calculated  = []
-#
-#    for smi in molecules_here:
-#        QED_calculated.append(QED_calculated[smi])
-#    QED_calculated  = np.array(QED_calculated)
-#
-#    
-#    return QED_calculated
 
 
 def obtained_standardized_properties(molecules_here,  logP_results, SAS_results, ringP_results, QED_results):
@@ -311,72 +229,28 @@ def obtain_fitness(disc_enc_type, smiles_here, selfies_here, properties_calc_ls,
     if disc_enc_type == 'smiles' or disc_enc_type == 'properties_rdkit':
         fitness_here, logP_calculated, SAS_calculated, RingP_calculated, discriminator_predictions, QED_calculated = fitness(smiles_here,   properties_calc_ls ,   discriminator, 
                                                                            disc_enc_type, generation_index,   max_molecules_len, device, num_processors, writer, beta, data_dir, max_fitness_collector) 
-#        fitness_here = fitness(smiles_here,   properties_calc_ls ,   discriminator, 
-#                               disc_enc_type, generation_index,   max_molecules_len, device, num_processors, writer, beta, data_dir, max_fitness_collector) 
     elif disc_enc_type == 'selfies':
         fitness_here, logP_calculated, SAS_calculated, RingP_calculated, discriminator_predictions = fitness(selfies_here,  properties_calc_ls ,   discriminator, 
                                                                            disc_enc_type, generation_index,   max_molecules_len, device, num_processors, writer, beta, data_dir, max_fitness_collector) 
-        
-
 
     fitness_here = fitness_here.reshape((generation_size, ))
     order, fitness_ordered, smiles_ordered, selfies_ordered = order_based_on_fitness(fitness_here, smiles_here, selfies_here)    
-
-    # Order molecules based on ordering of 'smiles_ordered'
-#    logP_calculated  = [logP_calculated[idx] for idx in order]
-#    SAS_calculated   = [SAS_calculated[idx] for idx in order]
-#    RingP_calculated = [RingP_calculated[idx] for idx in order]
-#    discriminator_predictions = [discriminator_predictions[idx] for idx in order]
     
     os.makedirs('{}/{}'.format(data_dir, generation_index))
     #  Write ordered smiles in a text file
     f = open('{}/{}/smiles_ordered.txt'.format(data_dir, generation_index), 'a+')
     f.writelines(["%s\n" % item  for item in smiles_ordered])
     f.close()
-#    #  Write logP of ordered smiles in a text file
-#    f = open('{}/{}/logP_ordered.txt'.format(data_dir, generation_index), 'a+')
-#    f.writelines(["%s\n" % item  for item in logP_calculated])
-#    f.close()
-#    #  Write sas of ordered smiles in a text file
-#    f = open('{}/{}/sas_ordered.txt'.format(data_dir, generation_index), 'a+')
-#    f.writelines(["%s\n" % item  for item in SAS_calculated])
-#    f.close()
-#    #  Write ringP of ordered smiles in a text file
-#    f = open('{}/{}/ringP_ordered.txt'.format(data_dir, generation_index), 'a+')
-#    f.writelines(["%s\n" % item  for item in RingP_calculated])
-#    f.close()
-#    #  Write discriminator predictions of ordered smiles in a text file
-#    f = open('{}/{}/discrP_ordered.txt'.format(data_dir, generation_index), 'a+')
-#    f.writelines(["%s\n" % item  for item in discriminator_predictions])
-#    f.close()
-    
-    
-    # Add the average & max discriminator score of a generation
-#    writer.add_scalar('mean discriminator score', np.array(discriminator_predictions).mean(), generation_index)
-#    writer.add_scalar('max discriminator score', max(discriminator_predictions), generation_index)
-#    f = open('{}/avg_discr_score.txt'.format(data_dir), 'a+')
-#    f.write(str(np.array(discriminator_predictions).mean()) + '\n')
-#    f.close()
-#    f = open('{}/max_discr_score.txt'.format(data_dir), 'a+')
-#    f.write(str(max(discriminator_predictions)[0]) + '\n')
-#    f.close()
-    
+
     #print statement for the best molecule in the generation
     print('Best best molecule in generation ', generation_index)
     print('    smile  : ', smiles_ordered[0])
     print('    fitness: ', fitness_ordered[0])
-#    print('    logP   : ', logP_calculated[0])
-#    print('    sas    : ', SAS_calculated[0])
-#    print('    ringP  : ', RingP_calculated[0])
-#    print('    discrm : ', discriminator_predictions[0])
-#    print('    QED : ', QED_calculated[0])
     
     f = open('{}/best_in_generations.txt'.format(data_dir), 'a+')
     best_gen_str = 'index: {},  smile: {}, fitness: {} '.format(generation_index, smiles_ordered[0], fitness_ordered[0])
     f.write(best_gen_str + '\n')
     f.close()
-
-#    show_generation_image(generation_index, image_dir, smiles_ordered, fitness_ordered, logP_calculated, SAS_calculated, RingP_calculated, discriminator_predictions)    
         
     return fitness_here, order, fitness_ordered, smiles_ordered, selfies_ordered
 
@@ -460,7 +334,6 @@ def apply_generation_cutoff(order, generation_size):
 #    import matplotlib.pyplot as plt
 #    plt.plot([i for i in range(generation_size)], probabilities)
 #    plt.show()
-#    raise Exception('CHECK shall we!')
     
     to_replace = [] # all molecules that are replaced 
     to_keep    = [] # all molecules that are kept 
