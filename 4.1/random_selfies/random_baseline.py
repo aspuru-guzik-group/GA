@@ -71,29 +71,17 @@ def calc_RingP(mol):
 
 def get_random_selfie_mol():
     '''
-    TODO: 
-        - Benzene inside the random string
-        - Number after a 'Ring' inside the molecule
+    Create random molecules using the SELFIES alphabet. Strings are contrained to 
+    a length of 81.
     '''
     valid = False
-    
-#    alphabet=['[Ring1]' , '[Branch1_1]','[Branch1_2]','[Branch1_3]','[O]','[N]','[=N]','[#N]','[C]','[=C]','[#C]','[S]','[=S]', '[=O]', '[F]', '[epsilon]', '[C][=C][C][=C][C][=C][Ring1][Branch1_1]']
-#    branch_alpha = ['[epsilon]', '[Ring1]', '[Ring2]', '[Branch1_1]', '[Branch1_2]', '[Branch1_3]', '[Branch2_1]', '[Branch2_2]',
-#                    ' [Branch2_3]', '[F]', '[O]', '[=O]', '[N]', '[=N]', '[#N]', '[C]', '[=C]', '[#C]', '[S]']
     alphabet = ['[Branch1_1]', '[Branch1_2]','[Branch1_3]', '[epsilon]', '[Ring1]', '[Ring2]', '[Branch2_1]', '[Branch2_2]', '[Branch2_3]', '[F]', '[O]', '[=O]', '[N]', '[=N]', '[#N]', '[C]', '[=C]', '[#C]', '[S]', '[=S]', '[C][=C][C][=C][C][=C][Ring1][Branch1_1]']
-
 
     while valid != True:
         selfie_char_ls = []
         for i in range(81):
-#            if i !=0 and selfie_char_ls[-1].startswith('[Ring'): # the last charact is RING,: 
-#                random_branch = np.random.choice(branch_alpha, size=1)[0]
-#                selfie_char_ls.append(random_branch)
-#                continue
             random_char = np.random.choice(alphabet, size=1)[0]
             selfie_char_ls.append(random_char)
-#        print('List: ', selfie_char_ls)
-#        raise Exception('LOL TEST!')
         
         selfie_str = ''.join(x for x in selfie_char_ls)
         decoded_smile_str = decoder(selfie_str)
@@ -132,7 +120,7 @@ for i in range(num_runs):
         mol, smiles_canon, done = sanitize_smiles(item)
         if mol == None or done == False:
             raise Exception('A molecule is incorrect! Test Failed')
-    #        print('SMILE: ', smiles_canon)
+
         logP_scores.append(get_logP(mol))
         SA_scores.append(get_SA(mol))
         RingP_scores.append(calc_RingP(mol))

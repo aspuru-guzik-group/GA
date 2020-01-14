@@ -99,7 +99,7 @@ if __name__ == '__main__':
             smiles_all_counter = initiate_ga(    num_generations            = 100,
                                                  generation_size            = 500,
                                                  starting_selfies           = [encoder('C')],
-                                                 max_molecules_len          = 49,
+                                                 max_molecules_len          = 81,
                                                  disc_epochs_per_generation = 10,
                                                  disc_enc_type              = 'properties_rdkit',         # 'selfies' or 'smiles' or 'properties_rdkit'
                                                  disc_layers                = [100, 10],
