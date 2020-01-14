@@ -17,17 +17,16 @@ The following settings can be used (found at the end of the file):
 - properties_calc_ls: Property evaluations to be completed for each molecule of the GA
 - num_processors: Number of cpu cores to parallelize calculations over
 - beta: Value of parameter beta
-
-Note: The discriminator scores were not accounted for in the fitness function for this experiment.  
-The main fitness function (which incorporates QED scores) is defined in line 157 of file 'generation_props.py'
+- beta_preference: Different beta values with which the experiment was run. For each beta, the experiment is repeated 5 times. 
 
 
 # How are the results saved?  : 
-Note: 'i' is the run iteration 
-1. results/results_0_i:  
+All the results are savents in the 'results' directory. Our results are saved as (Note: 'i' is the run iteration): 
+1. images_generation_beta_i:  
+   Images of the top 100 molecules of each generation. Below each molecule are the Fitness, logP, SA, ring penalty and discriminator scores
+2. results_beta_i:  
    Each sub-directory is named by the generation. The smile strings (ordered by fitness) and corresponding molecular properties are provided as text
    files: 'smiles_ordered.txt', 'logP_ordered.txt', 'sas_ordered.txt', 'ringP_ordered.txt', 'discrP_ordered.txt'. 
    Outside the sub-directories is the information about the best molecules of a generation. 
-2. /runs:  
-   Live plotting tool (for quick visualizations while the experiment was running).  
-   To activate, run: tensorboard --logdir ./runs (after cd'ing in the current directory)
+3. saved_models_beta_i:  
+   The trained discriminators after each generation. Please Note: We did not make use of the discriminator predictions in the Fitness for this experiment (beta is set to 0).

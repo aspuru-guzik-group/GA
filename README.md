@@ -7,12 +7,12 @@ Here is a visualization of molecular progress:
 
 # Directory Navigator: 
 The code for this repository is arranged based on the experiments of the paper. Particularly: 
-- [Experiment 1: ](https://github.com/akshat998/GA/tree/master/4.1) Unconstrained optimization and comparison with other generative models
-- [Experiment 2: ](https://github.com/akshat998/GA/tree/master/4.2) Long term experiment with a time-dependent adaptive penalty
-- [Experiment 3: ](https://github.com/akshat998/GA/tree/master/4.3) Analysis of molecule classes explored by the GA
-- [Experiment 4: ](https://github.com/akshat998/GA/tree/master/4.4) Constrained optimization
-- [Experiment 5: ](https://github.com/akshat998/GA/tree/master/4.5) Simultaneous logP and QED optimization
-- [Experiment 6: ](https://github.com/akshat998/GA/tree/master/4.6) Modification of the hyperparameter beta
+- [Experiment 4.1: ](https://github.com/akshat998/GA/tree/master/4.1) Unconstrained optimization and comparison with other generative models
+- [Experiment 4.2: ](https://github.com/akshat998/GA/tree/master/4.2) Long term experiment with a time-dependent adaptive penalty
+- [Experiment 4.3: ](https://github.com/akshat998/GA/tree/master/4.3) Analysis of molecule classes explored by the GA
+- [Experiment 4.4: ](https://github.com/akshat998/GA/tree/master/4.4) Constrained optimization
+- [Experiment 4.5: ](https://github.com/akshat998/GA/tree/master/4.5) Simultaneous logP and QED optimization
+- [Experiment 4.6: ](https://github.com/akshat998/GA/tree/master/4.6) Modification of the hyperparameter beta
 Instructions on running the code are provided in the above links. Please note that the code has been parallelized based on the number of CPU cores for quick property evaluations.
 
 
