@@ -103,7 +103,7 @@ def fitness(molecules_here,    properties_calc_ls,
     
     Parameters:
     molecules_here    (list)         : List of a string of molecules
-    properties_calc_ls                  : # TODO
+    properties_calc_ls               : Type of property to be shown to the descriminator
     discriminator     (torch.Model)  : Pytorch classifier 
     disc_enc_type     (string)       : Indicated type of encoding shown to discriminator
     generation_index  (int)          : Which generation indicator
@@ -155,10 +155,7 @@ def fitness(molecules_here,    properties_calc_ls,
         writer.add_scalar('avg fitness without discr',  fitness.mean(),   generation_index)
         
         
-        ## Add the best fitness to the collector! ------------
         max_fitness_collector.append(max(fitness)[0])
-#        print('Testing the max fitness collector: ', max_fitness_collector)
-        ## Add the best fitness to the collector! ------------
         
         ## Impose the beta cuttoff! --------------------------
         if generation_index > 100:
@@ -168,9 +165,7 @@ def fitness(molecules_here,    properties_calc_ls,
                 f = open('{}/beta_change_log.txt'.format(data_dir), 'a+')
                 f.write(str(generation_index) + '\n')
                 f.close()
-        
-        
-        ## Impose the beta cuttoff! --------------------------
+        ## beta cuttoff imposed! --------------------------
 
         
         # max fitness without discriminator
@@ -181,13 +176,6 @@ def fitness(molecules_here,    properties_calc_ls,
         f = open('{}/avg_fitness_no_discr.txt'.format(data_dir), 'a+')
         f.write(str(fitness.mean()) + '\n')
         f.close()
-        
-#        print('discrm. prediction before: ', discriminator_predictions[0:5])
-        
-        
-        ## TRANSFORMATION IMPOSED -------
-#        discriminator_predictions = (2 * discriminator_predictions) - 1 
-        ## TRANSFORMATION IMPOSED -------
         
         print('beta value: ', beta)
         fitness = (beta * discriminator_predictions) + fitness
@@ -428,7 +416,6 @@ def apply_generation_cutoff(order, generation_size):
 #    import matplotlib.pyplot as plt
 #    plt.plot(positions, probabilities)
 #    plt.show()
-#    raise Exception('CHECK shall we!')
     
     to_replace = [] # all molecules that are replaced 
     to_keep    = [] # all molecules that are kept 

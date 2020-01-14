@@ -139,19 +139,8 @@ def read_dataset_encoding(disc_enc_type):
     
     
 def create_100_mol_image(mol_list, file_name, fitness, logP, SAS, RingCount, discr_scores):
-    '''Create a single picture of multiple molecules in a single Grid. 
-    
-    Each molecule contains a subscript of: 
-        []
-    
-    # TODO: Convert arguments to one list, with multiple elements 
-    
-    
-    # TODO: Plotting multiple
-    # We have score to show in the legend 
-    # for i,m in enumerate(mol_list):
-    #    m.SetProp('_Name','%s %s %s' % (round(score_ls[i],2), round(logP[i],2)  ,  round(disc[i],2) ))
-    # Draw.MolsToGridImage(mol_list, molsPerRow=10, subImgSize=(200,200), legends=[x.GetProp("_Name") for x in mol_list]).save(file_name)
+    '''Create a single picture of multiple molecules in a single Grid. Property information is
+       added below each molecule
     '''
     assert len(mol_list) == 100
     if logP == None and SAS == None and RingCount == None and discr_scores == None:

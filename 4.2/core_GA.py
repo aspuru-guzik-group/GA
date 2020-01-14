@@ -34,8 +34,7 @@ def initiate_ga(num_generations,            generation_size,    starting_selfies
     
     # Read in the Zinc data set 
     molecules_reference = evo.read_dataset_encoding(disc_enc_type)
-#    print(molecules_reference[0:2])
-#    raise Exception()    
+
     molecules_reference = dict.fromkeys(molecules_reference, '') # convert the zinc data set into a dictionary
 
     # Set up Generation Loop 
