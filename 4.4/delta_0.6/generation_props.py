@@ -121,7 +121,7 @@ def fitness(molecules_here,    properties_calc_ls,
     
     Parameters:
     molecules_here    (list)         : List of a string of molecules
-    properties_calc_ls                  : # TODO
+    properties_calc_ls               : List of properties to calculate
     discriminator     (torch.Model)  : Pytorch classifier 
     disc_enc_type     (string)       : Indicated type of encoding shown to discriminator
     generation_index  (int)          : Which generation indicator
@@ -133,13 +133,7 @@ def fitness(molecules_here,    properties_calc_ls,
                                            discriminator predictions
     discriminator_predictions (np.array) : The predictions made by the discrimantor
     
-    '''
-#    dataset_x = evo.obtain_discr_encoding(molecules_here, disc_enc_type, max_molecules_len, num_processors, generation_index)
-#    if generation_index == 1: 
-#        discriminator_predictions = np.zeros((len(dataset_x),1))
-#    else:
-#        discriminator_predictions = D.do_predictions(discriminator, dataset_x, device)
-    
+    '''    
     if properties_calc_ls == None:
         raise Exception('Fail discrm trying to be invoked')
         fitness = discriminator_predictions
@@ -180,21 +174,7 @@ def fitness(molecules_here,    properties_calc_ls,
         
         Similarity_calculated = np.array([0 if x > desired_delta else -10**6 for x in Similarity_calculated])
         Similarity_calculated = Similarity_calculated.reshape((fitness.shape[0], 1))
-        
-        
-        ####################################
-#        A = list(Similarity_calculated.copy())
-#        B = list(fitness.copy())
-#        C = []
-#        print('One Element: ', B[0][0])
-#        print('One Element A : ', A[0][0]) 
-#        for i, b in enumerate(B):
-#            if A[i][0] >= 0:
-                
-        
-#        print(B)
-        
-#        raise Exception('Similarity Cut :)')
+
         fitness = fitness + Similarity_calculated
         
         
@@ -211,7 +191,6 @@ def fitness(molecules_here,    properties_calc_ls,
         f = open('{}/avg_fitness_no_discr.txt'.format(data_dir), 'a+')
         f.write(str(fitness.mean()) + '\n')
         f.close()
-        
         
 #        fitness = (beta * discriminator_predictions) + fitness
         
@@ -478,12 +457,6 @@ def obtain_next_gen_molecules(order,           to_replace,     to_keep,
         else: # smiles to keep
             smiles_mutated.append(smiles_ordered[idx])
             selfies_mutated.append(selfies_ordered[idx])
-    
-    #### TODO: CHECK    
-    for item in smiles_mutated:
-        mol, smi_canon, did_convert = evo.sanitize_smiles(item)
-        if did_convert == False:
-            raise Exception('Failed with (3): ', item)
         
     return smiles_mutated, selfies_mutated
    

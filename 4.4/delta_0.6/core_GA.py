@@ -68,15 +68,6 @@ def initiate_ga(num_generations,            generation_size,    starting_selfies
                 
         # Record in collective list of molecules 
         smiles_all, selfies_all, smiles_all_counter = gen_func.update_gen_res(smiles_all, smiles_mutated, selfies_all, selfies_mutated, smiles_all_counter)
-
-        
-        # Obtain data for training the discriminator (Note: data is shuffled)
-#        dataset_x, dataset_y = gen_func.obtain_discrm_data(disc_enc_type, molecules_reference, smiles_mutated, selfies_mutated, max_molecules_len, num_processors, generation_index)
-        # Train the discriminator (on mutated molecules)
-#        if generation_index >= training_start_gen:
-#            discriminator = D.do_x_training_steps(dataset_x, dataset_y, discriminator, d_optimizer, d_loss_func , disc_epochs_per_generation, generation_index-1, device, writer, data_dir)
-#            D.save_model(discriminator, generation_index-1, saved_models_dir) # Save the discriminator 
-
         print('Generation time: ', round((time.time()-start_time), 2), ' seconds')
 
     print('Total time: ', round((time.time()-total_time)/60, 2), ' mins')
@@ -112,7 +103,7 @@ if __name__ == '__main__':
                 # Initiate the Genetic Algorithm
                 smiles_all_counter = initiate_ga(    num_generations            = 20,
                                                      generation_size            = 500,
-                                                     starting_selfies           = [encoder(smile)],       # TODO: Add a molecule from the test set :)
+                                                     starting_selfies           = [encoder(smile)],       
                                                      max_molecules_len          = 81,
                                                      disc_epochs_per_generation = 0,
                                                      disc_enc_type              = 'properties_rdkit',                             # 'selfies' or 'smiles' or 'properties_rdkit'
