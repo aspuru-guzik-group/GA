@@ -17,16 +17,18 @@ Instructions on running the code are provided in the above links. Please note th
 
 
 
-# Prerequisite
+# Prerequisites
 
 Before running the code, please ensure you have the following:
 
 
 - [SELFIES (any version)](https://github.com/aspuru-guzik-group/selfies) - 
   The code was run with v0.1.1 (which is the fastest), however, the code is compatible with any version. 
-- [Python 3.0 or up](https://www.python.org/download/releases/3.0/)
-- [Pytorch v0.4.1](https://pytorch.org/)
+- [RDKit](https://www.rdkit.org/docs/Install.html)
 - [tensorboardX](https://pypi.org/project/tensorboardX/)
+- [Pytorch v0.4.1](https://pytorch.org/)
+- [Python 3.0 or up](https://www.python.org/download/releases/3.0/)
+- [numpy](https://pypi.org/project/numpy/)
 
 
 
