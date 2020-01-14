@@ -1,5 +1,5 @@
 # How to run the code? : 
-Code for the unconstrained optimization experiment can be run uing:  
+Code for the unconstrained optimization experiment can be run using:  
 ```
 python ./core_GA.py
 ```  
@@ -19,5 +19,12 @@ The following settings can be used (found at the end of the file):
 - beta: Value of parameter beta
 
 # How are the results saved?  : 
-
-
+All the results are savents in the 'results' directory. Our results are saved as (Note: 'i' is the run iteration): 
+1. images_generation_10_i:  
+   Images of the top 100 molecules of each generation. Below each molecule are the Fitness, logP, SA, ring penalty and discriminator scores
+2. results_10_i:  
+   Each sub-directory is named by the generation. The smile strings (ordered by fitness) and corresponding molecular properties are provided as text
+   files: 'smiles_ordered.txt', 'logP_ordered.txt', 'sas_ordered.txt', 'ringP_ordered.txt', 'discrP_ordered.txt'. 
+   Outside the sub-directories is the information about the best molecules of a generation. 
+3. saved_models_10_i:  
+   The trained discriminators after each generation. Please Note: We did not make use of the discriminator predictions in the Fitness for this experiment (beta is set to 0).
