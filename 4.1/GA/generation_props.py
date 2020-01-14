@@ -103,7 +103,7 @@ def fitness(molecules_here,    properties_calc_ls,
     
     Parameters:
     molecules_here    (list)         : List of a string of molecules
-    properties_calc_ls                  : # TODO
+    properties_calc_ls               : List of properties to calculate 
     discriminator     (torch.Model)  : Pytorch classifier 
     disc_enc_type     (string)       : Indicated type of encoding shown to discriminator
     generation_index  (int)          : Which generation indicator
@@ -342,18 +342,9 @@ def show_generation_image(generation_index, image_dir, smiles_ordered, fitness, 
 def obtain_previous_gen_mol(starting_smiles,  starting_selfies, generation_size,
                             generation_index, selfies_all,      smiles_all):
     '''Obtain molecules from one generation prior.
-       If generation_index is 1, only the the starting molecules are returned 
-       
-     Parameters:
-         
-     Returns: 
-    
+       If generation_index is 1, only the the starting molecules are returned     
     '''
-    # Obtain molecules from the previous generation 
-    
     if generation_index == 1:
-        
-        
         randomized_smiles  = []
         randomized_selfies = []
         for i in range(generation_size): # nothing to obtain from previous gen

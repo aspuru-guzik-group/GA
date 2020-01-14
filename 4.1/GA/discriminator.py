@@ -60,7 +60,7 @@ def obtain_initial_discriminator(disc_enc_type, disc_layers, max_molecules_len, 
         discriminator, d_optimizer, d_loss_func = create_discriminator(one_hot_len, disc_layers, 0.0, device) 
         return discriminator, d_optimizer, d_loss_func
     elif disc_enc_type == 'properties_rdkit':
-        discriminator, d_optimizer, d_loss_func = create_discriminator(51, disc_layers, device) # TODO: 9 = Hyperparam change according to num_propoerties 
+        discriminator, d_optimizer, d_loss_func = create_discriminator(51, disc_layers, device) 
         return discriminator, d_optimizer, d_loss_func
 
 
@@ -80,9 +80,6 @@ def do_x_training_steps(data_x, data_y, net, optimizer, loss_func, steps, graph_
         f = open('{}/discr_loss.txt'.format(data_dir), 'a+')
         f.write(str(float(loss)) + '\n')
         f.close()
-#        for name, param in net.named_parameters():
-#            writer.add_histogram(name, param.clone().cpu().data.numpy(), graph_x_counter*steps + t)
-
         optimizer.zero_grad()
         loss.backward(retain_graph=True)
         optimizer.step()
@@ -130,8 +127,8 @@ def check_discr_improvement(g_data, data_y, generation_index, ga_discr_lookback,
         
     @type data_y: Labels for g_data
     """
-    old_D = load_saved_model(generation_index-ga_discr_lookback) # start with 0, 1, 2, ...
-    new_D = load_saved_model(generation_index)   # start with 5, 6, 7, ...
+    old_D = load_saved_model(generation_index-ga_discr_lookback) 
+    new_D = load_saved_model(generation_index)  
 
     # Set models to evaluation mode
     old_D = old_D.eval()
