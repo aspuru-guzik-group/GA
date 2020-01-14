@@ -1,5 +1,5 @@
 # Augmenting genetic algorithms with deep neural networks for exploring the chemical space
-This repository contains code for the paper: [Augmenting genetic algorithms with deep neural networks for exploring the chemical space](https://arxiv.org/abs/1909.11655)
+This repository contains code for the paper: [Augmenting genetic algorithms with deep neural networks for exploring the chemical space](https://arxiv.org/abs/1909.11655).
 
 
 <img align="center" src="./readme_docs/mol_view.gif"/>
@@ -15,6 +15,8 @@ Before running the code, please ensure you have the following:
 
 - [Python 3.0 or up](https://www.python.org/download/releases/3.0/)
 - [Pytorch v0.4.1](https://pytorch.org/)
+- [SELFIES (any version)](https://github.com/aspuru-guzik-group/selfies) 
+  The code was run with v0.1.1 (which is the fastest), however, the code is compatible with any version. 
 
 
 # Questions, problems?
