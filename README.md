@@ -65,6 +65,12 @@ The code for the paper (arranged by experiment) can be found in the [paper_resul
 
 Instructions on running the experiments of the paper are provided in the above links. Please note that the code has been parallelized based on the number of CPU cores for quick property evaluations.
 
+To run the code quickly, we recommend the following command: 
+```
+git clone -b master --single-branch https://github.com/aspuru-guzik-group/GA.git --depth 1
+```
+This contains the raw GA code, without any results from the paper. Above is very quick for cloning, and has a small file size.  
+
 Due to the large size of the repository, we have created a seperate branch that contains outputs from all the eperiment. For this option, please run (note: this is a 4GB branch, and needs 20mins of cloning time): 
 ```
 git clone --single-branch --branch paper_results https://github.com/akshat998/GA.git
