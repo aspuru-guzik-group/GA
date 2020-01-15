@@ -17,7 +17,11 @@ The code for this repository is arranged based on the experiments of the paper. 
 
 Instructions on running the code are provided in the above links. Please note that the code has been parallelized based on the number of CPU cores for quick property evaluations.
 
+Due to the large size of the repository, we have created a seperate branch that contains outputs from all the eperiment. For this option, please run (note: this is a 4GB branch, and needs 20mins of cloning time): 
 
+```
+git clone --single-branch --branch paper_results https://github.com/akshat998/GA.git
+```
 
 # Prerequisites
 
