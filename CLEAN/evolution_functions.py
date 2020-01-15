@@ -674,13 +674,11 @@ def obtain_discr_encoding(molecules_here, disc_enc_type, max_molecules_len, num_
     '''
     if disc_enc_type == 'smiles':
         dataset_x = _to_onehot(molecules_here, disc_enc_type, max_molecules_len)
+        
     elif disc_enc_type == 'selfies':
         dataset_x = _to_onehot(molecules_here, disc_enc_type, max_molecules_len)
-    elif disc_enc_type == 'properties_rdkit':
         
-#        A = get_mult_mol_info(molecules_here)  # sequential generation method
-#        A = np.array(A)
-
+    elif disc_enc_type == 'properties_rdkit':
         # Parallel generation method         
         molecules_here_unique = list(set(molecules_here))
         ratio            = len(molecules_here_unique) / num_processors              # number of smiles each process shall handle
@@ -691,10 +689,6 @@ def obtain_discr_encoding(molecules_here, disc_enc_type, max_molecules_len, num_
 
         collect_data_x = [results_dict[smi] for smi in molecules_here]
         dataset_x = np.array(collect_data_x)                                        # Collect results from all processes 
-#        print('DATA_X shape = ', dataset_x.shape)
-#        print('A shape = ', A.shape)
-#        print('    ', (A == collect_data_x).all(), ' All values match?')
-#        raise Exception('Do not forget to remove A :)')
 
     return dataset_x
 

@@ -2,7 +2,6 @@
 Functions that are used while a Generation is being Evaluated 
 '''
 import os
-import random
 import multiprocessing
 from rdkit import Chem
 import numpy as np
