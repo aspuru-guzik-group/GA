@@ -106,7 +106,7 @@ if __name__ == '__main__':
                                                  disc_layers                = [100, 10],
                                                  training_start_gen         = 0,                          # generation index to start training discriminator
                                                  device                     = 'cpu',
-                                                 properties_calc_ls         = ['logP', 'QED'],   # None: No properties ; 'logP', 'SAS', 'RingP', 'QED'
+                                                 properties_calc_ls         = ['logP', 'SAS', 'RingP'],   # None: No properties ; 'logP', 'SAS', 'RingP', 'QED'
                                                  num_processors             = multiprocessing.cpu_count(),
                                                  beta                       = beta,
                                                  max_fitness_collector      = max_fitness_collector,
