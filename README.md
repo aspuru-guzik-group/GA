@@ -52,6 +52,8 @@ All the results are savents in the 'results' directory. Our results are saved as
 
 ## Branch Navigator: 
 The code for this repository is arranged based on the experiments of the paper. Particularly: 
+The code for the paper (arranged by experiment) can be found in the [paper_results branch](https://github.com/akshat998/GA/tree/paper_results). The experiments are arranged as follows: 
+
 - [Experiment 4.1: ](https://github.com/akshat998/GA/tree/paper_results/4.1) Unconstrained optimization and comparison with other generative models
 - [Experiment 4.2: ](https://github.com/akshat998/GA/tree/paper_results/4.2) Long term experiment with a time-dependent adaptive penalty
 - [Experiment 4.3: ](https://github.com/akshat998/GA/tree/paper_results/4.3) Analysis of molecule classes explored by the GA
