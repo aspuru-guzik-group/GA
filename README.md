@@ -4,11 +4,9 @@ Here is a visualization of molecular progress:
 
 <img align="center" src="./readme_docs/mol_view.gif"/>
 
-# Prerequisites
+## Prerequisites
 
 Before running the code, please ensure you have the following:
-
-
 - [SELFIES (any version)](https://github.com/aspuru-guzik-group/selfies) - 
   The code was run with v0.1.1 (which is the fastest), however, the code is compatible with any version. 
 - [RDKit](https://www.rdkit.org/docs/Install.html)
@@ -18,7 +16,7 @@ Before running the code, please ensure you have the following:
 - [numpy](https://pypi.org/project/numpy/)
 
 
-# How to run the code? : 
+## How to run the code? : 
 We highly recommend using the following version for running your experiments.  
 ```
 python ./core_GA.py
@@ -40,7 +38,7 @@ The following settings can be used (found at the end of the file):
 - impose_time_adapted_pen: Boolean variable to indicated use of a time-adapted discriminator penalty
 
 
-# How are the results saved?  : 
+## How are the results saved?  : 
 All the results are savents in the 'results' directory. Our results are saved as (Note: 'i' is the run iteration): 
 1. images_generation_0_i:  
    Images of the top 100 molecules of each generation. Below each molecule are the Fitness, logP, SA, ring penalty and discriminator scores
@@ -52,15 +50,15 @@ All the results are savents in the 'results' directory. Our results are saved as
    The trained discriminators after each generation. Please Note: We did not make use of the discriminator predictions in the Fitness for this experiment (beta is set to 0).
 
 
-# Directory Navigator: 
+## Branch Navigator: 
 The code for this repository is arranged based on the experiments of the paper. Particularly: 
-- [Experiment 4.1: ](https://github.com/akshat998/GA/tree/master/4.1) Unconstrained optimization and comparison with other generative models
-- [Experiment 4.2: ](https://github.com/akshat998/GA/tree/master/4.2) Long term experiment with a time-dependent adaptive penalty
-- [Experiment 4.3: ](https://github.com/akshat998/GA/tree/master/4.3) Analysis of molecule classes explored by the GA
-- [Experiment 4.4: ](https://github.com/akshat998/GA/tree/master/4.4) Constrained optimization
-- [Experiment 4.5: ](https://github.com/akshat998/GA/tree/master/4.5) Simultaneous logP and QED optimization
-- [Experiment 4.6: ](https://github.com/akshat998/GA/tree/master/4.6) Modification of the hyperparameter beta
-- [CLEAN: ](https://github.com/akshat998/GA/tree/master/CLEAN) A cleaner version of the code (recommend for running your experiments)
+- [Experiment 4.1: ](https://github.com/akshat998/GA/tree/paper_results/4.1) Unconstrained optimization and comparison with other generative models
+- [Experiment 4.2: ](https://github.com/akshat998/GA/tree/paper_results/4.2) Long term experiment with a time-dependent adaptive penalty
+- [Experiment 4.3: ](https://github.com/akshat998/GA/tree/paper_results/4.3) Analysis of molecule classes explored by the GA
+- [Experiment 4.4: ](https://github.com/akshat998/GA/tree/paper_results/4.4) Constrained optimization
+- [Experiment 4.5: ](https://github.com/akshat998/GA/tree/paper_results/4.5) Simultaneous logP and QED optimization
+- [Experiment 4.6: ](https://github.com/akshat998/GA/tree/paper_results/4.6) Modification of the hyperparameter beta
+- [CLEAN: ](https://github.com/akshat998/GA/tree/paper_results/CLEAN) A cleaner version of the code (recommend for running your experiments)
 
 Instructions on running the code are provided in the above links. Please note that the code has been parallelized based on the number of CPU cores for quick property evaluations.
 
@@ -71,9 +69,7 @@ git clone --single-branch --branch paper_results https://github.com/akshat998/GA
 
 
 
-
-# Questions, problems?
-
+## Questions, problems?
 Make a github issue 😄. Please be as clear and descriptive as possible. Please feel free to reach
 out in person: (akshat[DOT]nigam[AT]mail[DOT]utoronto[DOT]ca)
 
