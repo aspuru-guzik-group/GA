@@ -1,5 +1,5 @@
 # How to run the code? : 
-Code for the unconstrained optimization experiment can be run using:  
+We highly recommend using the following version for running your experiments.  
 ```
 python ./core_GA.py
 ```  
@@ -17,8 +17,7 @@ The following settings can be used (found at the end of the file):
 - properties_calc_ls: Property evaluations to be completed for each molecule of the GA
 - num_processors: Number of cpu cores to parallelize calculations over
 - beta: Value of parameter beta
-
-Note: The time adapted beta is imposed in lines 160-168 in 'generation_props.py'.
+- impose_time_adapted_pen: Boolean variable to indicated use of a time-adapted discriminator penalty
 
 
 # How are the results saved?  : 
