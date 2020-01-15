@@ -15,6 +15,8 @@ Before running the code, please ensure you have the following:
 - [Python 3.0 or up](https://www.python.org/download/releases/3.0/)
 - [numpy](https://pypi.org/project/numpy/)
 
+Please note: that the Synthetic Accesability calculater (i.e. directory SAS_calculator) comes from https://github.com/EricTing/SAscore.
+
 
 ## How to run the code? : 
 We highly recommend using the following version for running your experiments.  
@@ -72,5 +74,5 @@ git clone --single-branch --branch paper_results https://github.com/akshat998/GA
 
 ## Questions, problems?
 Make a github issue 😄. Please be as clear and descriptive as possible. Please feel free to reach
-out in person: (akshat[DOT]nigam[AT]mail[DOT]utoronto[DOT]ca)
+out in person: (akshat[DOT]nigam[AT]mail[DOT]utoronto[DOT]ca & pascal[DOT]friederich[AT]kit[DOT]edu)
 
