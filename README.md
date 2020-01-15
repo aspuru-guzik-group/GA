@@ -15,7 +15,7 @@ Before running the code, please ensure you have the following:
 - [Python 3.0 or up](https://www.python.org/download/releases/3.0/)
 - [numpy](https://pypi.org/project/numpy/)
 
-Please note: that the Synthetic Accesability calculater (i.e. directory SAS_calculator) comes from https://github.com/EricTing/SAscore.
+Please note: that the Synthetic Accesability calculater (i.e. directory SAS_calculator) comes from - [ https://github.com/EricTing/SAscore]( https://github.com/EricTing/SAscore).
 
 
 ## How to run the code? : 
