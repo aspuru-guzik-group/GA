@@ -13,9 +13,8 @@ The code for this repository is arranged based on the experiments of the paper. 
 - [Experiment 4.4: ](https://github.com/akshat998/GA/tree/master/4.4) Constrained optimization
 - [Experiment 4.5: ](https://github.com/akshat998/GA/tree/master/4.5) Simultaneous logP and QED optimization
 - [Experiment 4.6: ](https://github.com/akshat998/GA/tree/master/4.6) Modification of the hyperparameter beta
-- [CLEAN: ](https://github.com/akshat998/GA/tree/master/CLEAN) A cleaner version of the code (recommend for running your experiments)
 
-Instructions on running the code are provided in the above links. Please note that the code has been parallelized based on the number of CPU cores for quick property evaluations.
+Instructions on running specific experiments are provided in the above links. Please note that the code has been parallelized based on the number of CPU cores for quick property evaluations.
 
 Due to the large size of the repository, we have created a seperate branch that contains outputs from all the eperiment. For this option, please run (note: this is a 4GB branch, and needs 20mins of cloning time): 
 ```
