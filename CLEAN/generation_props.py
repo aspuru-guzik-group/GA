@@ -95,8 +95,9 @@ def create_parr_process(chunks, property_name):
 
 
 def fitness(molecules_here,    properties_calc_ls,  
-            discriminator,     disc_enc_type,   generation_index,
-            max_molecules_len, device,          num_processors,    writer, beta, data_dir, max_fitness_collector):
+            discriminator,     disc_enc_type,         generation_index,
+            max_molecules_len, device,                num_processors,    writer, beta, 
+            data_dir,          max_fitness_collector, impose_time_adapted_pen):
     ''' Calculate fitness fo a generation in the GA
     
     All properties are standardized based on the mean & stddev of the zinc dataset
@@ -109,6 +110,12 @@ def fitness(molecules_here,    properties_calc_ls,
     generation_index  (int)          : Which generation indicator
     max_molecules_len (int)          : Largest mol length
     device            (string)       : Device of discrimnator  
+    num_processors    (int)          : Number of cpu processors to parallelize over
+    writer            (tensorboardX writer obj) : Tensorboard graphing tool
+    beta              (int)          : Discriminator fitness parameter
+    data_dir          (str)          : Directory for saving data 
+    max_fitness_collector (list)     : List for collecting max fitness values
+    impose_time_adapted_pen (bool)   : Impose time-adaptive discriminator penalty? 
         
     Returns:
     fitness                   (np.array) : A lin comb of properties and 
@@ -132,6 +139,8 @@ def fitness(molecules_here,    properties_calc_ls,
         ratio            = len(molecules_here_unique) / num_processors 
         chunks           = evo.get_chunks(molecules_here_unique, num_processors, ratio) 
         chunks           = [item for item in chunks if len(item) >= 1]
+        
+        logP_results, SAS_results, ringP_results, QED_results = {}, {}, {}, {}
         # Parallelize the calculation of logPs
         if 'logP' in properties_calc_ls:
             logP_results = create_parr_process(chunks, 'logP')
@@ -143,11 +152,16 @@ def fitness(molecules_here,    properties_calc_ls,
         # Parallize the calculation of Ring Penalty
         if 'RingP' in properties_calc_ls:
             ringP_results = create_parr_process(chunks, 'RingP')
+            
+        if 'QED' in properties_calc_ls:
+            QED_results = {}
+            for smi in molecules_here:
+                QED_results[smi] = Chem.QED.qed(Chem.MolFromSmiles(smi))
 
+        logP_calculated, SAS_calculated, RingP_calculated, logP_norm, SAS_norm, RingP_norm, QED_results = obtained_standardized_properties(molecules_here, logP_results, SAS_results, ringP_results, QED_results, properties_calc_ls)
 
-        logP_calculated, SAS_calculated, RingP_calculated, logP_norm, SAS_norm, RingP_norm = obtained_standardized_properties(molecules_here, logP_results, SAS_results, ringP_results)
-
-        # Add SAS and Ring Penalty
+        # Add SAS and Ring Penalty 
+        # Note: The fitness function must include the properties of var. 'properties_calc_ls'
         fitness = (logP_norm) - (SAS_norm) - (RingP_norm)
     
         # Plot fitness without discriminator 
@@ -158,13 +172,14 @@ def fitness(molecules_here,    properties_calc_ls,
         max_fitness_collector.append(max(fitness)[0])
         
         ## Impose the beta cuttoff! --------------------------
-        if generation_index > 100:
-            if len(set(max_fitness_collector[-5:])) == 1: # Check if there is a sagnation for 10 generations!
-                beta = 1000
-                print('!!!BETA CUTTOFF IMPOSED!!!!  index: ', generation_index)
-                f = open('{}/beta_change_log.txt'.format(data_dir), 'a+')
-                f.write(str(generation_index) + '\n')
-                f.close()
+        if impose_time_adapted_pen: 
+            if generation_index > 100:
+                if len(set(max_fitness_collector[-5:])) == 1: # Check if there is a sagnation for 5 generations!
+                    beta = 1000
+                    print('Beta cutoff imposed  index: ', generation_index)
+                    f = open('{}/beta_change_log.txt'.format(data_dir), 'a+')
+                    f.write(str(generation_index) + '\n')
+                    f.close()
         ## beta cuttoff imposed! --------------------------
 
         
@@ -230,22 +245,30 @@ def fitness(molecules_here,    properties_calc_ls,
     return fitness, logP_calculated, SAS_calculated, RingP_calculated, discriminator_predictions
 
 
-def obtained_standardized_properties(molecules_here,  logP_results, SAS_results, ringP_results):
+def obtained_standardized_properties(molecules_here,  logP_results, SAS_results, ringP_results, QED_results, properties_calc_ls):
     ''' Obtain calculated properties of molecules in molecules_here, and standardize
     values base on properties of the Zinc Data set. 
     '''
     logP_calculated  = []
     SAS_calculated   = []
     RingP_calculated = []
+    QED_calculated = []
 
     for smi in molecules_here:
-        logP_calculated.append(logP_results[smi])
-        SAS_calculated.append(SAS_results[smi])
-        RingP_calculated.append(ringP_results[smi])
+        if 'logP' in properties_calc_ls: 
+            logP_calculated.append(logP_results[smi])
+        if 'SAS' in properties_calc_ls:
+            SAS_calculated.append(SAS_results[smi])
+        if 'RingP' in properties_calc_ls:
+            RingP_calculated.append(ringP_results[smi])
+        if 'QED' in properties_calc_ls:
+            QED_calculated.append(QED_results[smi])
+
     logP_calculated  = np.array(logP_calculated)
     SAS_calculated   = np.array(SAS_calculated)
     RingP_calculated = np.array(RingP_calculated)
-    
+    QED_calculated   = np.array(QED_calculated)
+   
     # Standardize logP based on zinc logP (mean: 2.4729421499641497 & std : 1.4157879815362406)
     logP_norm = (logP_calculated - 2.4729421499641497) / 1.4157879815362406
     logP_norm = logP_norm.reshape((logP_calculated.shape[0], 1))  
@@ -258,21 +281,23 @@ def obtained_standardized_properties(molecules_here,  logP_results, SAS_results,
     RingP_norm = (RingP_calculated - 0.038131530820234766) / 0.2240274735210179
     RingP_norm = RingP_norm.reshape((RingP_calculated.shape[0], 1))  
     
-    return logP_calculated, SAS_calculated, RingP_calculated, logP_norm, SAS_norm, RingP_norm
+    return logP_calculated, SAS_calculated, RingP_calculated, logP_norm, SAS_norm, RingP_norm, QED_calculated
         
 
 def obtain_fitness(disc_enc_type, smiles_here, selfies_here, properties_calc_ls, 
-                   discriminator, generation_index, max_molecules_len, device, generation_size, num_processors, writer, beta, image_dir, data_dir, max_fitness_collector):
+                   discriminator, generation_index, max_molecules_len, device, 
+                   generation_size, num_processors, writer, beta, image_dir,
+                   data_dir, max_fitness_collector, impose_time_adapted_pen):
     ''' Obtain fitness of generation based on choices of disc_enc_type.
         Essentially just calls 'fitness'
     '''
     # ANALYSE THE GENERATION    
     if disc_enc_type == 'smiles' or disc_enc_type == 'properties_rdkit':
         fitness_here, logP_calculated, SAS_calculated, RingP_calculated, discriminator_predictions = fitness(smiles_here,   properties_calc_ls ,   discriminator, 
-                                                                           disc_enc_type, generation_index,   max_molecules_len, device, num_processors, writer, beta, data_dir, max_fitness_collector) 
+                                                                           disc_enc_type, generation_index,   max_molecules_len, device, num_processors, writer, beta, data_dir, max_fitness_collector, impose_time_adapted_pen) 
     elif disc_enc_type == 'selfies':
         fitness_here, logP_calculated, SAS_calculated, RingP_calculated, discriminator_predictions = fitness(selfies_here,  properties_calc_ls ,   discriminator, 
-                                                                           disc_enc_type, generation_index,   max_molecules_len, device, num_processors, writer, beta, data_dir, max_fitness_collector) 
+                                                                           disc_enc_type, generation_index,   max_molecules_len, device, num_processors, writer, beta, data_dir, max_fitness_collector, impose_time_adapted_pen) 
         
 
 
