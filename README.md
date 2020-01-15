@@ -22,7 +22,7 @@ We highly recommend using the following version for running your experiments.
 python ./core_GA.py
 ```  
 
-The following settings can be used (found at the end of the file): 
+The following settings can be used (found at the end of the file 'core_GA.py'): 
 - num_generations: Number of generations to run the GA
 - generation_size: Molecular population size encountered in each generation 
 - starting_selfies: Initial population of molecules 
@@ -36,7 +36,6 @@ The following settings can be used (found at the end of the file):
 - num_processors: Number of cpu cores to parallelize calculations over
 - beta: Value of parameter beta
 - impose_time_adapted_pen: Boolean variable to indicated use of a time-adapted discriminator penalty
-
 
 ## How are the results saved?  : 
 All the results are savents in the 'results' directory. Our results are saved as (Note: 'i' is the run iteration): 
