@@ -5,6 +5,7 @@ Here is a visualization of molecular progress:
 <img align="center" src="./readme_docs/mol_view.gif"/>
 
 ## Prerequisites
+For cloning the repository, please have a look at the Branch Navigator section.  
 
 Before running the code, please ensure you have the following:
 - [SELFIES (any version)](https://github.com/aspuru-guzik-group/selfies) - 
