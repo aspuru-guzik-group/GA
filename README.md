@@ -62,7 +62,6 @@ The code for the paper (arranged by experiment) can be found in the [paper_resul
 - [Experiment 4.4: ](https://github.com/akshat998/GA/tree/paper_results/4.4) Constrained optimization
 - [Experiment 4.5: ](https://github.com/akshat998/GA/tree/paper_results/4.5) Simultaneous logP and QED optimization
 - [Experiment 4.6: ](https://github.com/akshat998/GA/tree/paper_results/4.6) Modification of the hyperparameter beta
-- [CLEAN: ](https://github.com/akshat998/GA/tree/paper_results/CLEAN) A cleaner version of the code (recommend for running your experiments)
 
 Instructions on running the experiments of the paper are provided in the above links. Please note that the code has been parallelized based on the number of CPU cores for quick property evaluations.
 
