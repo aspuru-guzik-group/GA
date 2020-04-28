@@ -28,7 +28,7 @@ We highly recommend using the following version for running your experiments.
 python ./core_GA.py
 ```  
 
-The following settings can be used (found at the end of the file 'core_GA.py'): 
+The following settings can be customized (found at the end of the file 'core_GA.py'): 
 - num_generations: Number of generations to run the GA
 - generation_size: Molecular population size encountered in each generation 
 - starting_selfies: Initial population of molecules 
