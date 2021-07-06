@@ -85,3 +85,7 @@ git clone --single-branch --branch paper_results https://github.com/akshat998/GA
 Make a github issue 😄. Please be as clear and descriptive as possible. Please feel free to reach
 out in person: (akshat[DOT]nigam[AT]mail[DOT]utoronto[DOT]ca & pascal[DOT]friederich[AT]kit[DOT]edu)
 
+## License
+
+[Apache License 2.0](https://choosealicense.com/licenses/apache-2.0/)
+
